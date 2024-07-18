@@ -5,7 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function UpdatePersonalInformationForm({className = '', props}) {
+export default function UpdatePersonalInformationForm({ className = '' }) {
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, processing, recentlySuccessful } = useForm({
@@ -14,7 +14,6 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
         idol: user.idol,
         motto: user.motto,
         about: user.about,
-
     });
 
     const onKeyPressEvent = (event) => {
@@ -22,12 +21,16 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
         const keyValue = String.fromCharCode(keyCode);
         if (!new RegExp("[0-9]").test(keyValue)) event.preventDefault();
         return;
-      };
+    };
 
     const submit = (e) => {
         e.preventDefault();
-
-        patch(route('personal.settings_information'));
+        patch(route('personal.settings_information'), {
+            preserveScroll: true, // Ovo osigurava da se stranica ne skroluje na vrh
+            onSuccess: () => {
+                // Dodatna logika nakon uspešnog ažuriranja, ako je potrebna
+            }
+        });
     };
 
     return (
@@ -40,9 +43,8 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-            <div>
+                <div>
                     <InputLabel htmlFor="nickname" value="Nickname" />
-
                     <TextInput
                         id="nickname"
                         className="mt-1 block w-full"
@@ -53,8 +55,7 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="favNum" value="Favorite Number" />
-
+                    <InputLabel htmlFor="fav_num" value="Favorite Number" />
                     <TextInput
                         id="fav_num"
                         className="mt-1 block w-full"
@@ -68,7 +69,6 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
 
                 <div>
                     <InputLabel htmlFor="idol" value="Idol" />
-
                     <TextInput
                         id="idol"
                         className="mt-1 block w-full"
@@ -80,7 +80,6 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
 
                 <div>
                     <InputLabel htmlFor="motto" value="Motto" />
-
                     <TextInput
                         id="motto"
                         className="mt-1 block w-full"
@@ -92,7 +91,6 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
 
                 <div>
                     <InputLabel htmlFor="about" value="About Me" />
-
                     <TextInput
                         id="about"
                         className="mt-1 block w-full"
@@ -115,7 +113,6 @@ export default function UpdatePersonalInformationForm({className = '', props}) {
                     </Transition>
                 </div>
             </form>
-            
         </section>
     )
 }

@@ -16,7 +16,7 @@ export default function UpdateProfileInformation({ props, mustVerifyEmail, statu
         lastname: user.lastname,
         city: user.city,
         gender: user.gender,
-        contact: user.phone_number,
+        contact: user.contact,
         dob: user.dob = localStorage.getItem('dob'),
     });
 
