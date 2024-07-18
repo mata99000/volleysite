@@ -9,6 +9,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
+        lastname: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -46,6 +47,22 @@ export default function Register() {
                     />
 
                     <InputError message={errors.name} className="mt-2" />
+                </div>
+                <div>
+                    <InputLabel htmlFor="lastname" value="Last Name" />
+
+                    <TextInput
+                        id="lastname"
+                        name="lastname"
+                        value={data.lastname}
+                        className="mt-1 block w-full"
+                        autoComplete="lastname"
+                        isFocused={true}
+                        onChange={(e) => setData('lastname', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.lastname} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -102,7 +119,7 @@ export default function Register() {
                 <div className="flex items-center justify-end mt-4">
                     <Link
                         href={route('login')}
-                        className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Already registered?
                     </Link>
