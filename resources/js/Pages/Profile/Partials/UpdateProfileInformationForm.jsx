@@ -134,7 +134,7 @@ export default function UpdateProfileInformation({ props, mustVerifyEmail, statu
 
                     <TextInput
                         id="contact"
-                        inputmode="numeric"
+                        inputMode="numeric"
                         pattern="[0-9]{10}"
                         maxLength="10"
                         placeholder="0621234567"
