@@ -12,10 +12,10 @@ return [
         'height' => '100',
     ],
     'background' => [
-        'color' => '#ffffff',
+        'color' => '#929722',
         'image' => '/storage/auth/background.jpg',
         'image_overlay_color' => '#000000',
-        'image_overlay_opacity' => '0.56',
+        'image_overlay_opacity' => '0.5',
     ],
     'color' => [
         'text' => '#212936',
