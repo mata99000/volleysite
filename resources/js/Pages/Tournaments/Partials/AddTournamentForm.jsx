@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -7,45 +7,38 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import UploadImageTournament from './UploadImageTournament';
 import InputImage from '@/Components/InputImage';
+
 let previewUrl;
 
-
-export default function AddTournamentForm({ props, status, className = '' }) {
-    const tournaments = usePage().props.auth.tournaments;
-
-    const { data, setData, setTournament, post, patch, errors, processing, recentlySuccessful } = useForm({
-        //name: tournaments.name,
-        //date: tournaments.date = localStorage.getItem('date'),
-        //location: tournaments.location,
+export default function AddTournamentForm({ status, className = '' }) {
+    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+        name: '',
+        start_date: '',
+        end_date: '',
+        location: '',
+        tournament_pic: null,
     });
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('add.tournament'));
-        useEffect(() => {
-            return () => {
-              previewUrl && URL.revokeObjectURL(previewUrl); 
-            }
-          }, []);
-
+        post(route('tournaments.store'), {
+            onSuccess: () => URL.revokeObjectURL(previewUrl)
+        });
     };
+
     const handleChangeStart = (e) => {
         setData('start_date', e.target.value);
-        localStorage.setItem("start_date", e.target.value);
-      }
+    };
 
     const handleChangeEnd = (e) => {
         setData('end_date', e.target.value);
-        localStorage.setItem("end_date", e.target.value);
-    }
+    };
 
     return (
         <section>
-            <form onSubmit={ submit} className="mt-6 space-y-6">
+            <form onSubmit={submit} className="mt-6 space-y-6" encType="multipart/form-data">
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
-
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
@@ -55,37 +48,35 @@ export default function AddTournamentForm({ props, status, className = '' }) {
                         isFocused
                         autoComplete="name"
                     />
-
                     <InputError className="mt-2" message={errors.name} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="start_date" value="Start date" />
-
                     <TextInput 
                         id="start_date"
                         name="start_date"
                         type="date"
-                        value={data.date}
+                        value={data.start_date}
                         onChange={handleChangeStart}
                     />
+                    <InputError className="mt-2" message={errors.start_date} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="end_date" value="End date" />
-
                     <TextInput 
                         id="end_date"
                         name="end_date"
                         type="date"
-                        value={data.date}
+                        value={data.end_date}
                         onChange={handleChangeEnd}
                     />
+                    <InputError className="mt-2" message={errors.end_date} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="location" value="Location" />
-
                     <TextInput
                         id="location"
                         className="mt-1 mb-6 block w-full"
@@ -94,28 +85,26 @@ export default function AddTournamentForm({ props, status, className = '' }) {
                         required
                         autoComplete="location"
                     />
-
-                    <InputError className="mt-2" message={errors.city} />
+                    <InputError className="mt-2" message={errors.location} />
                 </div>
 
                 <div className="mt-6 space-y-6">
                     <ul className="flex flex-wrap">
-                    {previewUrl && (
-                    <img src={previewUrl} alt="Preview" />
-                    )}
-                    <InputImage
-                    onChange={(e) => {
-                    previewUrl = URL.createObjectURL(e.target.files[0]); 
-                    setData('tournament_pic', e.target.files[0]);
-                     }}
-                     />
+                        {previewUrl && (
+                            <img src={previewUrl} alt="Preview" />
+                        )}
+                        <InputImage
+                            onChange={(e) => {
+                                previewUrl = URL.createObjectURL(e.target.files[0]);
+                                setData('tournament_pic', e.target.files[0]);
+                            }}
+                        />
                     </ul>
+                    <InputError className="mt-2" message={errors.tournament_pic} />
                 </div>
-
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
                     <Transition
                         show={recentlySuccessful}
                         enter="transition ease-in-out"
@@ -128,5 +117,5 @@ export default function AddTournamentForm({ props, status, className = '' }) {
                 </div>
             </form>
         </section>
-    )
+    );
 }

@@ -8,6 +8,25 @@ use App\Http\Controllers\ClubController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/tournaments', function() {
+        return Inertia::render('Tournaments/Tournaments');
+    })->name('tournaments.index');
+    Route::get('/add_tournament', function() {
+        return Inertia::render('Tournaments/AddTournament');
+    })->name('addtournaments.index');
+    
+    
+    
+    Route::post('/add_tournament', [TournamentController::class, 'add_tournament'])->name('add.tournament');       
+    Route::post('/tournaments', [TournamentController::class, 'add_tournament'])->name('tournaments.store');
+    Route::get('/tournaments/{tournament}', [TournamentController::class, 'show'])->name('tournaments.show');
+    Route::get('/tournaments/{tournament}/edit', [TournamentController::class, 'edit'])->name('tournaments.edit');
+    Route::put('/tournaments/{tournament}', [TournamentController::class, 'update'])->name('tournaments.update');
+    Route::delete('/tournaments/{tournament}', [TournamentController::class, 'destroy'])->name('tournaments.destroy');
+});
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -16,21 +35,10 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/add_club', function() {
-    return Inertia::render('Club/AddClub');
-});
 
-Route::post('/add_club', [ClubController::class, 'store'])->name('add.club');       
 
-Route::post('/edit/club/{id}', [ClubController::class, 'edit_club'])->name('edit.club');
-Route::get('/edit/club/{id}', [ClubController::class, 'edit_show'])->name('editshow.club');
 
 // vraca view za kreiranje turnira
-Route::get('/add_tournament', function() {
-    return Inertia::render('Tournaments/AddTournament');
-})->name('addtournaments.index');
-
-
 
 
 
@@ -45,12 +53,9 @@ Route::get('/profile/{id}/{name}-{lastname}', [ProfileController::class, 'show_p
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/tournaments', function() {
-        return Inertia::render('Tournaments/Tournaments');
-    })->name('tournaments.index');
+    
     
     //vraca view za kreiranje turnira
-    Route::post('/add_tournament', [TournamentController::class, 'add_tournament'])->name('add.tournament');       
 
     // vraca personal_settings view 
     Route::get('/personal_settings', [PersonalInfromationController::class, 'edit'])->name('personal.edit');
