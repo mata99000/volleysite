@@ -8,7 +8,7 @@ use App\Http\Controllers\ClubController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+Route::get('tournaments-api', [TournamentController::class, 'index']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tournaments', function() {

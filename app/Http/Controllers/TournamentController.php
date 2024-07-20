@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Resources\TournamentResource;
 
 
 class TournamentController extends Controller
@@ -13,7 +14,7 @@ class TournamentController extends Controller
     public function index()
     {
         $tournaments = Tournament::all();
-        return Inertia::render('Tournaments/Index', ['tournaments' => $tournaments]);
+        return TournamentResource::collection($tournaments);
     }
 
     public function create()
@@ -25,7 +26,7 @@ class TournamentController extends Controller
     {
         // Validacija
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:tournaments',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'location' => 'required',
