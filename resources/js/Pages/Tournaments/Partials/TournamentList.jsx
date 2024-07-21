@@ -2,32 +2,32 @@ import React, { useState, useEffect } from 'react';
 
 
 export default function TournamentList () {
-    const [tournament, setTournament] = useState([]);
+    const [tournaments, setTournaments] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
-          const response = await fetch('http://127.0.0.1:8000/api/tournaments');
-          const data = await response.json();
+        async function fetchTournaments() {
+          const response = await fetch('/tournaments-api');
+          const result = await response.json();
     
           
-          if (response.ok && data) {
-            setTournament(data);
+          if (response.ok && result) {
+            setTournaments(result);
           }
         }
     
-        fetchData();
+        fetchTournaments();
       }, [])
     
     return (
             <div className="text-center">
 
-      {tournament.length > 0 ? (
+      {tournaments.length > 0 ? (
         <ul className="flex flex-wrap">
-          {tournament.map(tournament => (
+          {tournaments.map(tournament => (
             <li 
                 className="basis-1/5 mx-6 text-center"
                 key={tournament.id}>
-                  <img className="m-auto h-20 border rounded" src={`tournament_pics/${tournament.tournament_pic}`}></img>
+                  {/* <img className="m-auto h-20 border rounded" src={`tournament_pics/${data.tournament_pic}`}></img> */}
                   {tournament.name}
             </li>
           ))}
