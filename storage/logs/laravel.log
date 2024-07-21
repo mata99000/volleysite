@@ -374,3 +374,4 @@
 #46 C:\\Users\\PC\\Herd\\volleyfrontend\\artisan(13): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
 #47 {main}
 "} 
+[2024-07-21 09:47:32] local.INFO: User profile updated successfully {"user_id":1} 
