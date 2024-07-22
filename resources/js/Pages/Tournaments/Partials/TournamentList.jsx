@@ -9,7 +9,7 @@ export default function TournamentList() {
             const result = await response.json();
 
             if (response.ok && result) {
-                setTournaments(result.data);
+                setTournaments(result.tournament);
             } else {
                 console.error("Failed to fetch tournaments");
             }
