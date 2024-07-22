@@ -15,9 +15,11 @@ class TournamentResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'tournament_id' => $this->id,
             'tournament_name' => $this->name,
             'tournament_date' => $this->start_date,
             'tournament_location' => $this->location,
+            'tournament_pic' => $this->tournament_pic, 
         ];
     }
 }
