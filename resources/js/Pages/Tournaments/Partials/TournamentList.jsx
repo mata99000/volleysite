@@ -9,8 +9,7 @@ export default function TournamentList() {
             const result = await response.json();
 
             if (response.ok && result) {
-                console.log(result); // Dodato za debagovanje
-                setTournaments(result.data); // Uveri se da koristis odgovarajući ključ iz JSON odgovora
+                setTournaments(result.data);
             } else {
                 console.error("Failed to fetch tournaments");
             }
@@ -20,22 +19,18 @@ export default function TournamentList() {
     }, []);
 
     return (
-        <div className="text-center">
-            {tournaments.length > 0 ? (
-                <table className="table-auto w-full">
-                    <thead>
-                        <tr>
-                            <th className="px-4 py-2">Name</th>
-                            <th className="px-4 py-2">Date</th>
-                            <th className="px-4 py-2">Location</th>
-                        </tr>
-                    </thead>
+        <div className="flex flex-col w-full">
+            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div className="overflow-hidden">
+                {tournaments.length > 0 ? (
+                <table className="min-w-full text-left text-sm font-light text-surface dark:text-white cursor-pointer">
                     <tbody>
-                        {tournaments.map((tournament, index) => (
-                            <tr key={index}>
-                                <td className="border px-4 py-2">{tournament.tournament_name}</td>
-                                <td className="border px-4 py-2">{tournament.tournament_date}</td>
-                                <td className="border px-4 py-2">{tournament.tournament_location}</td>
+                        {tournaments.map((tournament) => (
+                            <tr key={tournament.tournament_id} className="transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
+                                <td className="whitespace-nowrap px-6 py-2"><img className="inline mx-4 h-12 border rounded" src={`tournament-api/${tournament.tournament_pic}`}></img>{tournament.tournament_name}</td>
+                                <td className="whitespace-nowrap px-6 py-2">{tournament.tournament_date}</td>
+                                <td className="whitespace-nowrap px-6 py-2">{tournament.tournament_location}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -43,6 +38,9 @@ export default function TournamentList() {
             ) : (
                 <p>No tournaments found</p>
             )}
+                </div>
+              </div>
+            </div>
         </div>
     );
 }
