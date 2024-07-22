@@ -14,8 +14,10 @@ class TournamentController extends Controller
     public function index()
     {
         $tournaments = Tournament::all();
-        return TournamentResource::collection($tournaments);
-    }
+        return response()->json([
+            'tournaments' => TournamentResource::collection($tournaments)
+        ]);
+        }
 
     public function create()
     {
