@@ -32,19 +32,19 @@ class TournamentController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'location' => 'required',
-            'tournament_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            //'tournament_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // Upload slike
-        $fileName = time() . '.' . $request->tournament_pic->extension();  
-        $request->tournament_pic->move(public_path('tournament_pics'), $fileName);
+       // $fileName = time() . '.' . $request->tournament_pic->extension();  
+       // $request->tournament_pic->move(public_path('tournament_pics'), $fileName);
 
         // Kreiraj turnir
         $tournament = new Tournament;
         $tournament->name = $request->name;
         $tournament->start_date = $request->start_date;
         $tournament->end_date = $request->end_date;
-        $tournament->tournament_pic = $fileName;
+    //    $tournament->tournament_pic = $fileName;
         $tournament->location = $request->location;
         $tournament->created_by = Auth::id();
 
