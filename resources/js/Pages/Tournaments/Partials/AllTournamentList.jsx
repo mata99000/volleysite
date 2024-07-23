@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function TournamentList() {
+export default function AllTournamentList() {
     const [tournaments, setTournaments] = useState([]);
 
     useEffect(() => {
@@ -9,7 +9,7 @@ export default function TournamentList() {
             const result = await response.json();
 
             if (response.ok && result) {
-                setTournaments(result.tournament);
+                setTournaments(result.tournaments);
             } else {
                 console.error("Failed to fetch tournaments");
             }
@@ -28,7 +28,7 @@ export default function TournamentList() {
                     <tbody>
                         {tournaments.map((tournament) => (
                             <tr key={tournament.tournament_id} className="transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
-                                {/* <td className="whitespace-nowrap py-2 text-center"><img className="inline h-12 border rounded" src={`tournament-api/${tournament.tournament_pic}`}></img></td> */}
+                                {/* <td className="whitespace-nowrap py-2 text-center"><img className="inline h-12 border rounded" src={`tournament_pics/${tournament.tournament_pic}`}></img></td> */}
                                 <td className="whitespace-nowrap px-6 py-2">{tournament.tournament_name}</td>
                                 <td className="whitespace-nowrap px-6 py-2">{tournament.tournament_date}</td>
                                 <td className="whitespace-nowrap px-6 py-2">{tournament.tournament_location}</td>
