@@ -9,7 +9,57 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <>
             <Head title="Welcome" />
             <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-                <div className="sm:absolute sm:top-0 sm:right-0 p-4 text-end">
+                <div className="max-w-full mx-auto px-0">
+                    <header className="bg-white shadow-lg h-16 hidden md:flex px-16">
+                        <div className="flex items-center justify-center">
+                            <Link href="" className="flex-shrink-0 items-center justify-center lg:px-0 xl:px-0">
+                                <AppLogo className=""/>
+                            </Link>
+                        <div className="ml-0 font-semibold text-base lg:text-lg uppercase">
+                            <a className="" href="#">
+                                <span className="">VolleyTourns</span>
+                            </a>
+                        </div>
+                        <div className="ml-4">
+                            <div className="relative">
+                                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="search" 
+                                    id="default-search" 
+                                    className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
+                                </input>
+                            </div>
+                        </div>
+                        </div>
+                        <nav className="header-links contents font-semibold text-base lg:text-lg">
+                            <ul className="flex items-center ml-4 xl:ml-8 mr-auto">
+                                <li className="p-3 xl:p-6 active">
+                                    <a href="/">
+                                        <span>Home</span>
+                                    </a>
+                                </li>
+                                <li className="p-3 xl:p-6">
+                                    <a href="/tournaments">
+                                        <span>Tournaments</span>
+                                    </a>
+                                </li>
+                                <li className="p-3 xl:p-6">
+                                    <a href="#">
+                                        <span>Database</span>
+                                    </a>
+                                </li>
+                                <li className="p-3 xl:p-6">
+                                    <a href="#">
+                                        <span>Free Players</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    <div className="sm:relative sm:top-0 sm:right-0 p-4 text-end">
                     {auth.user ? (
                     <div className="flex justify-center">
                     <div className="hidden sm:flex sm:items-center sm:ms-6">
@@ -66,61 +116,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </a>
                         </>
                     )}
-                </div>
-
-                <div className="max-w-full mx-auto px-0">
-                    <header className="bg-white shadow-lg h-16 hidden md:flex px-16">
-                        <div className="flex items-center justify-center">
-                            <Link href="" className="flex-shrink-0 items-center justify-center lg:px-0 xl:px-0">
-                                <AppLogo className=""/>
-                            </Link>
-                        <div className="ml-0 font-semibold text-base lg:text-lg uppercase">
-                            <a className="" href="#">
-                                <span className="">VolleyTourns</span>
-                            </a>
-                        </div>
-                        <div className="ml-4">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
-                                    </svg>
-                                </div>
-                                <input 
-                                    type="search" 
-                                    id="default-search" 
-                                    className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
-                                </input>
-                            </div>
-                        </div>
-                        </div>
-                        <nav className="header-links contents font-semibold text-base lg:text-lg">
-                            <ul className="flex items-center ml-4 xl:ml-8 mr-auto">
-                                <li className="p-3 xl:p-6 active">
-                                    <a href="/">
-                                        <span>Home</span>
-                                    </a>
-                                </li>
-                                <li className="p-3 xl:p-6">
-                                    <a href="/tournaments">
-                                        <span>Tournaments</span>
-                                    </a>
-                                </li>
-                                <li className="p-3 xl:p-6">
-                                    <a href="#">
-                                        <span>Database</span>
-                                    </a>
-                                </li>
-                                <li className="p-3 xl:p-6">
-                                    <a href="#">
-                                        <span>Free Players</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    <div className="flex justify-center">
-                       
-                    </div>
+            </div>
                     </header> 
                     <div className="mt-16 px-16">
                         <h1 className="mb-6 text-xl font-semibold text-gray-900 dark:text-white">
