@@ -8,8 +8,13 @@ use App\Http\Controllers\ClubController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+//Public Tournaments routes
+
 Route::get('tournaments-api', [TournamentController::class, 'index']);
 Route::get('/tournament/{tournament_name}', [TournamentController::class, 'view_tournament']);
+
+//Protected Tournament Routs for creating and editing 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tournaments', function() {
         return Inertia::render('Tournaments/Tournaments');
@@ -17,9 +22,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/add_tournament', function() {
         return Inertia::render('Tournaments/AddTournament');
     })->name('addtournaments.index');
-    
-    
-    
     Route::post('/add_tournament', [TournamentController::class, 'add_tournament'])->name('add.tournament');       
     Route::post('/tournaments', [TournamentController::class, 'add_tournament'])->name('tournaments.store');
     Route::get('/tournaments/{tournament}', [TournamentController::class, 'show'])->name('tournaments.show');
@@ -39,15 +41,6 @@ Route::get('/', function () {
 
 
 // vraca view za kreiranje turnira
-
-
-
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-    
 Route::get('/profile/{id}/{name}-{lastname}', [ProfileController::class, 'show_profile'])->name('profile.show');
 
 
