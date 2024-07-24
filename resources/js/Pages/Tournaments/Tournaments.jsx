@@ -1,9 +1,14 @@
+import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import AllTournamentList from './Partials/AllTournamentList';
 import NavLink from '@/Components/NavLink';
+import TextInput from '@/Components/TextInput';
 
 export default function Tournaments({ auth }) {
+    const [ search, setSearch ] = useState('');
+    console.log(search);
+
     return (
         <AuthenticatedLayout
         
@@ -52,7 +57,14 @@ export default function Tournaments({ auth }) {
                             </div>
                     {/* Right side - Search */}
                         <div className="row-span-3 basis-1/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                            <h1 className="p-1 text-gray-900 text-lg">Search Tournament</h1>
+                            <form className="w-full">
+                                <div>
+                                    <TextInput 
+                                        placeholder='Search Tournament'
+                                        onChange={(e) => setSearch(e.target.value)}
+                                    />
+                                </div>
+                            </form>
                         </div>
                         </div>
                     </div>
