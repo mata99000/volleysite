@@ -1,9 +1,14 @@
+import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
-import TournamentList from './Partials/TournamentList';
+import AllTournamentList from './Partials/AllTournamentList';
 import NavLink from '@/Components/NavLink';
+import TextInput from '@/Components/TextInput';
 
 export default function Tournaments({ auth }) {
+    const [ search, setSearch ] = useState('');
+    console.log(search);
+
     return (
         <AuthenticatedLayout
         
@@ -28,11 +33,10 @@ export default function Tournaments({ auth }) {
                         </button>
                     </Link>
                     </div>
-                    {/* Current Tournaments - Start */}
+                    
                     <div className="pt-6 px-6">
-                    {/* Left side - List */}
                         <div className="grid grid-rows-3 grid-flow-col md:grid-rows-3 gap-4 lg:gap-4">
-                        <div className="col-span-2 sm:rounded-lg self-start">
+                        {/* <div className="col-span-2 sm:rounded-lg self-start">
                             <div className="p-1 basis-3/4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Panel
@@ -44,16 +48,23 @@ export default function Tournaments({ auth }) {
                                     Tournaments
                                 </NavLink>
                             </div>
-                        </div>
+                        </div> */}
                             <div className="row-span-2 col-span-2 basis-3/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                                <h1 className="p-4 text-gray-900 text-2xl">Current Tournaments</h1>
+                                {/* <h1 className="p-4 text-gray-900 text-2xl">Current Tournaments</h1> */}
                                 <div>
-                                    <TournamentList />
+                                    <AllTournamentList />
                                 </div>
                             </div>
                     {/* Right side - Search */}
                         <div className="row-span-3 basis-1/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                            <h1 className="p-1 text-gray-900 text-lg">Search Tournament</h1>
+                            <form className="w-full">
+                                <div>
+                                    <TextInput 
+                                        placeholder='Search Tournament'
+                                        onChange={(e) => setSearch(e.target.value)}
+                                    />
+                                </div>
+                            </form>
                         </div>
                         </div>
                     </div>
