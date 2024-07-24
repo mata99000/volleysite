@@ -15,5 +15,6 @@ class Tournament extends Model
         'location',
         'max_teams',
         'details',
+        'tournament_type',
     ];
 }

@@ -17,8 +17,19 @@ class TournamentController extends Controller
         return response()->json([
             'tournaments' => TournamentResource::collection($tournaments)
         ]);
-        }
+    }
 
+    public function view_tournament($tournament_name)
+    {
+        // Pretpostavimo da imamo model Tournament i bazu podataka
+        $tournament = Tournament::where('name', $tournament_name)->first();
+
+        if ($tournament) {
+            return response()->json($tournament);
+        } else {
+            return response()->json(['error' => 'Tournament not found'], 404);
+        }
+    }
     public function create()
     {
         return Inertia::render('Tournaments/Create');
