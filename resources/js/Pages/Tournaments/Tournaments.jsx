@@ -57,9 +57,10 @@ export default function Tournaments({ auth }) {
                             </div>
                     {/* Right side - Search */}
                         <div className="row-span-3 basis-1/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                            <form className="w-full">
+                            <form className="">
                                 <div>
                                     <TextInput 
+                                        className="w-full"
                                         placeholder='Search Tournament'
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
