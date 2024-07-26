@@ -3,11 +3,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import AllTournamentList from './Partials/AllTournamentList';
 import NavLink from '@/Components/NavLink';
-import TextInput from '@/Components/TextInput';
+import TournamentSearch from '@/Pages/Tournaments/Partials/TournamentSearch';
 
 export default function Tournaments({ auth }) {
-    const [ search, setSearch ] = useState('');
-    console.log(search);
 
     return (
         <AuthenticatedLayout
@@ -35,39 +33,7 @@ export default function Tournaments({ auth }) {
                     </div>
                     
                     <div className="pt-6 px-6">
-                        <div className="grid grid-rows-3 grid-flow-col md:grid-rows-3 gap-4 lg:gap-4">
-                        {/* <div className="col-span-2 sm:rounded-lg self-start">
-                            <div className="p-1 basis-3/4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Panel
-                                </NavLink>
-                                <NavLink href={route('profile.set_profile_image')}>
-                                    Profile
-                                </NavLink>
-                                <NavLink href={route('add.tournament')}>
-                                    Tournaments
-                                </NavLink>
-                            </div>
-                        </div> */}
-                            <div className="row-span-2 col-span-2 basis-3/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                                {/* <h1 className="p-4 text-gray-900 text-2xl">Current Tournaments</h1> */}
-                                <div>
-                                    <AllTournamentList />
-                                </div>
-                            </div>
-                    {/* Right side - Search */}
-                        <div className="row-span-3 basis-1/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                            <form className="">
-                                <div>
-                                    <TextInput 
-                                        className="w-full"
-                                        placeholder='Search Tournament'
-                                        onChange={(e) => setSearch(e.target.value)}
-                                    />
-                                </div>
-                            </form>
-                        </div>
-                        </div>
+                        <TournamentSearch />
                     </div>
                 </div>
             </div>
