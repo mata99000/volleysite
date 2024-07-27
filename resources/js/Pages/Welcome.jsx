@@ -3,7 +3,8 @@ import NavLink from '@/Components/NavLink';
 import Dropdown from '@/Components/Dropdown';
 import AppLogo from '@/Components/AppLogo';
 import TournamentListHomepage from '@/Pages/Tournaments/Partials/TournamentListHomepage';
-
+import NotificationBell from '@/Components/NotificationBell'; // Proverite da li je putanja tačna
+import TestNotificationButton from '@/Components/TestNotificationButton';
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
@@ -27,9 +28,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                         <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
                                     </svg>
                                 </div>
-                                <input 
-                                    type="search" 
-                                    id="default-search" 
+                                <input
+                                    type="search"
+                                    id="default-search"
                                     className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
                                 </input>
                             </div>
@@ -63,6 +64,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     {auth.user ? (
                     <div className="flex justify-center">
                     <div className="hidden sm:flex sm:items-center sm:ms-6">
+                        <TestNotificationButton />
+                        <NotificationBell />
                             <div className="ms-3 relative">
                         <Dropdown>
                             <Dropdown.Trigger>
@@ -91,7 +94,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                             <Dropdown.Content>
                                 <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                <Dropdown.Link href={route('personal.edit')}>Personal Settings</Dropdown.Link>  
+                                <Dropdown.Link href={route('personal.edit')}>Personal Settings</Dropdown.Link>
                                 <Dropdown.Link href={route('logout')} method="post" as="button">Log Out</Dropdown.Link>
                             </Dropdown.Content>
 
@@ -117,7 +120,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </>
                     )}
             </div>
-                    </header> 
+                    </header>
                     <div className="mt-16 px-16">
                         <h1 className="mb-6 text-xl font-semibold text-gray-900 dark:text-white">
                             Tournaments
@@ -126,9 +129,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <div
                                 className="col-span-2 scale-100 pt-8 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500"
                             >
-                                  <TournamentListHomepage 
+                                  <TournamentListHomepage
                                     className="table-fixed"/>
-                                   
+
                             </div>
 
                             <a
