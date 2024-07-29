@@ -11,13 +11,36 @@ use Inertia\Inertia;
 use App\Events\ImmediateMessageSent;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\NotificationController;
+use App\Events\PublicMessageSent;
+use App\Events\PrivateMessageSent;
+use App\Models\Notification;
+use Illuminate\Http\Request;
+// Ruta za emitovanje javnog događaja
+Route::get('/send-public-message', function () {
+    event(new PublicMessageSent('Ovo je javna poruka'));
+    return response()->json(['status' => 'Public message sent']);
+});
+
+// Ruta za emitovanje privatnog događaja
+Route::get('/send-private-message', function () {
+    $userId = auth()->id(); // Uveri se da je korisnik prijavljen
+    event(new PrivateMessageSent('Ovo je privatna poruka', $userId));
+    return response()->json(['status' => 'Private message sent']);
+});
+
+
 
 Route::middleware('auth')->group(function () {
-    Route::get('/notifications', [NotificationController::class, 'index']);
-    Route::post('/notifications', [NotificationController::class, 'store']);
-    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
-    Route::post('/test-notification', [NotificationController::class, 'createTestNotification']);
+    Route::get('/notifications', function () {
+        return Notification::where('user_id', auth()->id())->where('read', false)->get();
+    });
+
+    Route::patch('/notifications/{notification}/read', function (Notification $notification) {
+        $notification->update(['read' => true]);
+        return response()->json(['status' => 'Notification marked as read']);
+    });
 });
+
 
 
 Route::get('/send', function () {

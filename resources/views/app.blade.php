@@ -11,7 +11,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <script>
             window.Laravel = {
-                csrfToken: '{{ csrf_token() }}'
+                csrfToken: '{{ csrf_token() }}',
+                userId: {{ auth()->check() ? auth()->user()->id : 'null' }}
             };
         </script>
         <!-- Scripts -->
