@@ -22,8 +22,11 @@ export default function AllTournamentList( { search }) {
     return (
         <div className="flex flex-col w-full">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div className="inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="overflow-hidden">
+                    <h2 className="mb-6 text-xl font-semibold text-gray-900 dark:text-white">
+                        Tournaments
+                    </h2>
                 {tournaments.length > 0 ? (
                 <table className="min-w-full text-center text-sm font-light text-surface dark:text-white cursor-pointer">
                     <tbody>

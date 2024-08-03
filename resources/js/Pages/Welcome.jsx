@@ -128,11 +128,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     </header>
 
                     <div className="mt-16 px-16">
-                        <h1 className="mb-6 text-xl font-semibold text-gray-900 dark:text-white">
-                            Tournaments
-                        </h1>
                         <div className="grid grid-cols-3 md:grid-cols-3 gap-4 lg:gap-4">
-                        
                             <TournamentSearch />
                         
 
