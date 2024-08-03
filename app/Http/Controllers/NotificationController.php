@@ -56,7 +56,7 @@ class NotificationController extends Controller
     public function createTestNotification()
     {
         try {
-            $user = Auth::user();
+            $user = 4;
 
             $notification = new Notification();
             $notification->user_id = $user->id;
@@ -64,7 +64,7 @@ class NotificationController extends Controller
             $notification->save();
 
             event(new ImmediateMessageSent($notification));
-            return response()->json(['message' => 'Test notification created successfully']);
+            return response()->json(['message' => 'Test notification created successfully' . $user]);
         } catch (\Exception $e) {
             \Log::error('Error creating test notification: '.$e->getMessage());
             return response()->json(['error' => 'Error creating test notification'], 500);

@@ -6,7 +6,6 @@ import AppLogo from '@/Components/AppLogo';
 import TournamentSearch from '@/Pages/Tournaments/Partials/TournamentSearch';
 import TournamentListHomepage from '@/Pages/Tournaments/Partials/TournamentListHomepage';
 import NotificationBell from '@/Components/NotificationBell'; // Proverite da li je putanja tačna
-import TestNotificationButton from '@/Components/TestNotificationButton';
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const [tournamentSearch, setTournamentSearch] = useState('');
 
@@ -69,7 +68,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     {auth.user ? (
                     <div className="flex justify-center">
                     <div className="hidden sm:flex sm:items-center sm:ms-6">
-                        <TestNotificationButton />
                         <NotificationBell />
                             <div className="ms-3 relative">
                         <Dropdown>
@@ -132,9 +130,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             Tournaments
                         </h1>
                         <div className="grid grid-cols-3 md:grid-cols-3 gap-4 lg:gap-4">
-                        
+
                             <TournamentSearch />
-                        
+
 
                             <a
                                 href="https://laracasts.com"

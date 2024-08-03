@@ -43,11 +43,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/send', function () {
-    Log::info('Emitting ImmediateMessageSent event...');
-    event(new ImmediateMessageSent('Hello from Immediate Event!'));
-    return 'Immediate event has been sent!';
-});
+
 
 Route::get('tournaments-api', [TournamentController::class, 'index']);
 Route::get('/tournament/{tournament_name}', [TournamentController::class, 'view_tournament']);
@@ -78,8 +74,6 @@ Route::get('/', function () {
 
 
 
-// vraca view za kreiranje turnira
-Route::get('/profile/{id}/{name}-{lastname}', [ProfileController::class, 'show_profile'])->name('profile.show');
 
 
 Route::middleware('auth')->group(function () {
@@ -96,6 +90,7 @@ Route::middleware('auth')->group(function () {
 
     // update name,lastname, dob , phone_number, city, gender
     Route::patch('/personal_settings_profile', [PersonalInfromationController::class, 'update_profile'])->name('personal.update_profile');
+    Route::get('/{name}-{lastname}/{id}', [ProfileController::class, 'show_profile'])->name('profile.show');
 
     // update Nickname, fav_num, about ...
     Route::patch('/personal_settings_information', [PersonalInfromationController::class, 'update'])->name('personal.settings_information');
