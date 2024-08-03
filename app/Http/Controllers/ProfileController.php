@@ -29,33 +29,36 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function show_profile($user_id) {
-    $user = User::where('id', $user_id)->first();
+    public function show_profile($name, $lastname, $id) {
+        $user = User::findOrFail($id);
 
-    if ($user) {
-        // Odaberite atribute koje želite vratiti, izuzev šifre
-       
-        $userData = [
-            'nickname' => $user->nickname,
-            'email' => $user->email,
-            'created_at' => $user->created_at,
-            // Dodajte ostale atribute koje želite uključiti
-        ];
 
-        dd($userData);
-        
+        if ($user->name !== $name || $user->lastname !== $lastname) {
+            abort(404);
+        }
+
         return Inertia::render('Profile/Profile', [
-            'users_profile' => $userData,
+            'users_profile' => [
+                'name' => $user->name,
+                'lastname' => $user->lastname,
+                'nickname' => $user->nickname,
+                'email' => $user->email,
+                'city' => $user->city,
+                'dob' => $user->dob,
+                'image_name' => $user->image_name,
+                'motto' => $user->motto,
+                'about' => $user->about,
+                'gender' => $user->gender,
+
+
+
+
+
+                // Dodajte ovde druge neosetljive informacije koje želite podeliti
+            ],
         ]);
-        
-    } else {
-        // Dodajte odgovarajući kod ako korisnik nije pronađen
-        // Na primer, možete vratiti grešku ili preusmeriti korisnika
-        abort(404);
-        
-    }
 }
-    
+
 public function set_profile_image(Request $request)
     {
         $request->validate([
@@ -97,5 +100,5 @@ public function set_profile_image(Request $request)
 
         return Redirect::to('/');
     }
-    
+
 }
