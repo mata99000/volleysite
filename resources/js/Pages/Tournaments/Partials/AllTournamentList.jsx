@@ -28,7 +28,7 @@ export default function AllTournamentList( { search }) {
                 <table className="min-w-full text-center text-sm font-light text-surface dark:text-white cursor-pointer">
                     <tbody>
                         {tournaments.filter((tournament) => {
-                            return search.toLowerCase() === '' ? tournament : tournament.tournament_name.toLowerCase().includes(search);
+                            return search.toLowerCase() === '' ? tournament : tournament.tournament_name.toLowerCase().includes(search.toLowerCase());
                         }).map((tournament) => (
                             <tr key={tournament.tournament_id} className="transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
                                 {/* <td className="whitespace-nowrap py-2 text-center"><img className="inline h-12 border rounded" src={`tournament_pics/${tournament.tournament_pic}`}></img></td> */}
@@ -40,8 +40,11 @@ export default function AllTournamentList( { search }) {
                     </tbody>
                 </table>
             ) : (
-                <p>No tournaments found</p>
+                <p>Loading...</p>
             )}
+            {tournaments.length > 6 ? (
+                <a href="" className="uppercase bg-indigo-500 rounded-tl-full rounded-br-full text-white text-xs text-center self-center px-4 py-2 m-2">Show More</a>
+            ) : null}
                 </div>
               </div>
             </div>

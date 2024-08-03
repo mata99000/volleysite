@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import TextInput from '@/Components/TextInput';
 import AllTournamentList from '@/Pages/Tournaments/Partials/AllTournamentList';
+import DropdownByGender from '@/Components/DropdownByGender';
+import DropdownBySurface from '@/Components/DropdownBySurface';
 
 export default function TournamentSearch() {
     const [searchTournament, setSearchTournament] = useState('');
@@ -8,28 +10,37 @@ export default function TournamentSearch() {
 
     return (
         <>
-            <div className="pt-6 px-6">
-            <div className="grid grid-rows-3 grid-flow-col md:grid-rows-3 gap-4 lg:gap-4">
-                {/* Left side - List of Tournaments */}
-                <div className="row-span-2 col-span-2 basis-3/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                                {/* <h1 className="p-4 text-gray-900 text-2xl">Current Tournaments</h1> */}
-                                <div>
-                                    <AllTournamentList search = { searchTournament }/>
-                                </div>
-                            </div>
-                    {/* Right side - Search */}
-                        <div className="row-span-3 basis-1/4 bg-white overflow-hidden shadow-sm sm:rounded-lg self-start">
-                            <form className="">
-                                <div>
-                                    <TextInput 
-                                        className="w-full"
-                                        placeholder="Search Tournament"
-                                        onChange={(e) => setSearchTournament(e.target.value)}
-                                    />
-                                </div>
-                            </form>
-                        </div>
+            <div 
+                className="col-span-2 scale-100 pt-8 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500"
+            >
+                    <AllTournamentList  search = { searchTournament }
+                                        className="table-fixed"/>
+
             </div>
+
+            <div
+                className="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500"
+            >
+                    <div className="w-full">
+                    <h2 className="mb-6 text-xl font-semibold text-gray-900 dark:text-white">
+                            Search Tournament
+                    </h2>
+                        <div>
+                        <TextInput
+                                type="text"
+                                placeholder=""
+                                onChange={(e) => setSearchTournament(e.target.value)}
+                                className="w-full mb-6"
+                        />
+                        </div>
+                        <div>
+                            <DropdownByGender className="w-full border-transparent focus:border-transparent focus:ring-0"/>
+                        </div>
+                        <div>
+                            <DropdownBySurface className="w-full border-transparent focus:border-transparent focus:ring-0"/>
+                        </div>
+                    </div>
+                                
             </div>
         </>
     )

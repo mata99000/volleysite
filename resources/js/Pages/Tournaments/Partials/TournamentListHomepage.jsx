@@ -4,6 +4,7 @@ export default function AllTournamentList() {
     const [tournaments, setTournaments] = useState([]);
 
     useEffect(() => {
+        
         async function fetchTournaments() {
             const response = await fetch('/tournaments-api');
             const result = await response.json();
@@ -13,6 +14,7 @@ export default function AllTournamentList() {
             } else {
                 console.error("Failed to fetch tournaments");
             }
+       
         }
 
         fetchTournaments();
@@ -36,10 +38,12 @@ export default function AllTournamentList() {
                         ))}
                     </tbody>
                 </table>
-            ) : (
-                <p>No tournaments found</p>
+            ) : 
+            (
+                <p className="text-center">Loading...</p>
             )}
-            <a href="http://volleysite.test/tournaments" className="uppercase bg-indigo-500 rounded-tl-full rounded-br-full text-white text-xs text-center self-center px-4 py-2 m-2">Show More</a>
+            
+            
                 </div>
               </div>
             </div>

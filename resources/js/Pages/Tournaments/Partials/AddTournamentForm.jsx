@@ -88,7 +88,7 @@ export default function AddTournamentForm({ status, className = '' }) {
                     <InputError className="mt-2" message={errors.location} />
                 </div>
 
-                <div className="mt-6 space-y-6">
+                {/* <div className="mt-6 space-y-6">
                     <ul className="flex flex-wrap">
                         {previewUrl && (
                             <img src={previewUrl} alt="Preview" />
@@ -101,7 +101,7 @@ export default function AddTournamentForm({ status, className = '' }) {
                         />
                     </ul>
                     <InputError className="mt-2" message={errors.tournament_pic} />
-                </div>
+                </div> */}
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
