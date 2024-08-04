@@ -133,9 +133,17 @@ const NotificationBell = () => {
     return (
         <div className="notification-bell">
             <button onClick={toggleDropdown}>
-                <span role="img" aria-label="notifications">🔔</span>
+            <div className="relative inline-flex">
+                <img
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
+                    alt="profile picture"
+                    className="inline-block relative object-cover object-center !rounded-full w-12 h-12 -mt-2" />
+                </div>
                 {notifications.length > 0 && (
-                    <span className="badge">{notifications.length}</span>
+                    // <span className="badge">{notifications.length}</span>
+                    <span
+                        className="absolute min-w-[12px] min-h-[12px] rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white">
+                    </span>
                 )}
             </button>
             {isDropdownOpen && (
