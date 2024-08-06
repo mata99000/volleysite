@@ -33,7 +33,8 @@ export default function Profile({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 bg-white shadow-sm rounded-lg p-6 space-y-6">
-                    {users_profile && (
+                    <p>Profile stranica</p>
+                    {/* {users_profile && (
                         <div className="text-center">
                             {users_profile.image_name && (
                                 <div className="mb-6">
@@ -75,7 +76,7 @@ export default function Profile({ auth }) {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </AuthenticatedLayout>
