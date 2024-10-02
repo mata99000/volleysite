@@ -2,6 +2,7 @@ import React from 'react';
 import { usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import ProfileTabs from '@/Pages/Profile/ProfilePartials/ProfileTabs';
 
 export default function Profile({ auth }) {
     const { users_profile } = usePage().props;
@@ -31,10 +32,21 @@ export default function Profile({ auth }) {
         >
             <Head title={`${users_profile.name} ${users_profile.lastname} - Profile`} />
 
-            <div className="py-12">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 bg-white shadow-sm rounded-lg p-6 space-y-6">
-                    <p>Profile stranica</p>
-                    {/* {users_profile && (
+            <div className="py-12 mx-auto container">
+                <div className="relative">
+                    <img src="https://img.freepik.com/free-photo/high-angle-composition-with-volleyballs_23-2149023837.jpg?t=st=1723222142~exp=1723225742~hmac=923b49631a618fe56394d502f79b21ad672b5323fef3e1160c068bbc6f98a3f9&w=1380"
+                     className="w-full h-[200px] object-cover"></img>
+                    <img src={`/storage/avatars/${users_profile.image_name}`}
+                        className="absolute rounded-full left-[100px] w-[128px] h-[128px] -bottom-[48px]"></img>
+                </div>
+                <div className="w-full px-2 sm:px-0">
+                    <ProfileTabs />
+                </div>
+                
+                
+                {/* <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 bg-white shadow-sm rounded-lg p-6 space-y-6">
+                 
+                    {users_profile && (
                         <div className="text-center">
                             {users_profile.image_name && (
                                 <div className="mb-6">
@@ -76,8 +88,8 @@ export default function Profile({ auth }) {
                                 </div>
                             </div>
                         </div>
-                    )} */}
-                </div>
+                    )}
+                </div> */}
             </div>
         </AuthenticatedLayout>
     );
