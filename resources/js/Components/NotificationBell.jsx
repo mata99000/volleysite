@@ -143,7 +143,6 @@ const NotificationBell = () => {
                 </div>
             </div>
                 {notifications.length > 0 && (
-                    // <span className="badge">{notifications.length}</span>
                     <span
                         className="absolute min-w-[10px] min-h-[10px] rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white">
                     </span>
@@ -157,7 +156,9 @@ const NotificationBell = () => {
                         <>
                             {notifications.map((notification, index) => (
                                 <div key={index} className="dropdown-item">
-                                    {notification.message}
+                                    <span
+                                        dangerouslySetInnerHTML={{ __html: notification.message }}
+                                    />
                                     <button onClick={() => removeNotification(index)} className="remove-button">
                                         &times;
                                     </button>

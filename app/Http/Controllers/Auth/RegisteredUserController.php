@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Events\PrivateMessageSent;
+
 
 class RegisteredUserController extends Controller
 {
@@ -45,7 +47,14 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
+        
+        // Emitovanje eventa sa privatnom porukom za registrovanog korisnika
+        event(new PrivateMessageSent(
+            'Dobrodošli u našu aplikaciju! <br> <a href="' . route('personal.edit') . '" class="text-blue-500 underline hover:text-blue-700">Ažurirajte vaš profil</a>', 
+            $user->id
+        ));
+        
+  
         return redirect(route('home', absolute: false));
     }
 }
