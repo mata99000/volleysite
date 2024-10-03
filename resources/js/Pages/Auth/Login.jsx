@@ -86,12 +86,25 @@ export default function Login({ status, canResetPassword }) {
                             Forgot your password?
                         </Link>
                     )}
-
+                    
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Log in
                     </PrimaryButton>
                 </div>
             </form>
+
+            {/* Dodavanje linka za registraciju */}
+            <div className="mt-6 text-center">
+                <p className="text-sm text-gray-600">
+                    Not have an account?{' '}
+                    <Link
+                        href={route('register')}
+                        className="underline text-sm text-blue-600 hover:text-blue-900"
+                    >
+                        Sign Up now
+                    </Link>
+                </p>
+            </div>
         </GuestLayout>
     );
 }
