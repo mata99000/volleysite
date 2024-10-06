@@ -15,6 +15,33 @@ use App\Events\PublicMessageSent;
 use App\Events\PrivateMessageSent;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
+
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\TestEmail;
+
+
+
+Route::get('/auth/{provider}', function ($provider) {
+    return Socialite::driver($provider)->redirect();
+});
+
+Route::get('/auth/{provider}/callback', function ($provider) {
+    $socialUser = Socialite::driver($provider)->user();
+
+    // Pronađite korisnika ili kreirajte novog
+    $user = User::firstOrCreate([
+        'email' => $socialUser->getEmail(),
+    ], [
+        'name' => $socialUser->getName(),
+        'password' => bcrypt('random-password'), // Trebalo bi postaviti bolju zaštitu
+    ]);
+
+    Auth::login($user);
+
+    return redirect('/');
+});
 // Ruta za emitovanje javnog događaja
 Route::get('/send-public-message', function () {
     event(new PublicMessageSent('Ovo je javna poruka'));
@@ -76,7 +103,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
 
 
 
