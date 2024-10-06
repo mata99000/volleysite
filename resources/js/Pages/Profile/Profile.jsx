@@ -3,6 +3,7 @@ import { usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import ProfileTabs from '@/Pages/Profile/ProfilePartials/ProfileTabs';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 export default function Profile({ auth }) {
     const { users_profile } = usePage().props;
@@ -32,16 +33,30 @@ export default function Profile({ auth }) {
         >
             <Head title={`${users_profile.name} ${users_profile.lastname} - Profile`} />
 
-            <div className="py-12 mx-auto container">
+            <div className="mx-auto container">
                 <div className="relative">
                     <img src="https://img.freepik.com/free-photo/high-angle-composition-with-volleyballs_23-2149023837.jpg?t=st=1723222142~exp=1723225742~hmac=923b49631a618fe56394d502f79b21ad672b5323fef3e1160c068bbc6f98a3f9&w=1380"
                      className="w-full h-[200px] object-cover"></img>
-                    <img src={`/storage/avatars/${users_profile.image_name}`}
-                        className="absolute rounded-full left-[100px] w-[128px] h-[128px] -bottom-[48px]"></img>
+                    <div className="flex bg-white">
+                            <img src={`/storage/avatars/${users_profile.image_name}`}
+                            className="rounded-full ml-[100px] w-[120px] h-[120px] -mt-[54px]"></img>
+                        <div className="flex justify-between items-center flex-1 p-4 capitalize">
+                            <h1 className="text-lg font-bold">{`${users_profile.name} ${users_profile.lastname}`}</h1>
+
+                            <PrimaryButton>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                                Edit Profile</PrimaryButton>
+                        </div>
+                    </div>
+                   
+                    <div className="w-full px-2 sm:px-0 border-t">
+                            <ProfileTabs />
+                    </div>
+                    
                 </div>
-                <div className="w-full px-2 sm:px-0">
-                    <ProfileTabs />
-                </div>
+               
                 
                 
                 {/* <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 bg-white shadow-sm rounded-lg p-6 space-y-6">

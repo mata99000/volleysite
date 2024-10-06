@@ -6067,3 +6067,4 @@
 #56 C:\\Program Files\\Herd\\resources\\app.asar.unpacked\\resources\\valet\\server.php(139): require('C:\\\\Users\\\\PC\\\\Her...')
 #57 {main}
 "} 
+[2024-10-03 16:25:07] local.INFO: User profile updated successfully {"user_id":15} 
