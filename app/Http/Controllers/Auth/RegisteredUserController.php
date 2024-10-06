@@ -55,6 +55,6 @@ class RegisteredUserController extends Controller
         ));
         
   
-        return redirect(route('home', absolute: false));
+        return redirect(route('verification.notice', absolute: false));
     }
 }
