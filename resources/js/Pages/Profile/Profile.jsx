@@ -26,6 +26,8 @@ export default function Profile({ auth }) {
         return `${day} ${month} ${year} (${age} years old)`;
     };
 
+    
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -34,28 +36,32 @@ export default function Profile({ auth }) {
             <Head title={`${users_profile.name} ${users_profile.lastname} - Profile`} />
 
             <div className="mx-auto container">
-                <div className="relative">
+                <div className="relative group">
                     <img src="https://img.freepik.com/free-photo/high-angle-composition-with-volleyballs_23-2149023837.jpg?t=st=1723222142~exp=1723225742~hmac=923b49631a618fe56394d502f79b21ad672b5323fef3e1160c068bbc6f98a3f9&w=1380"
-                     className="w-full h-[200px] object-cover"></img>
-                    <div className="flex bg-white">
-                            <img src={`/storage/avatars/${users_profile.image_name}`}
-                            className="rounded-full ml-[100px] w-[120px] h-[120px] -mt-[54px]"></img>
-                        <div className="flex justify-between items-center flex-1 p-4 capitalize">
-                            <h1 className="text-lg font-bold">{`${users_profile.name} ${users_profile.lastname}`}</h1>
+                     className="w-full h-[350px] object-cover"></img>
+                     <button className="absolute top-2 right-2 bg-gray-50 hover:bg-gray-100 text-gray-800 py-1 px-2 text-xs flex items-center opacity-0 group-hover:opacity-100">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 mr-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+                    </svg>
 
-                            <PrimaryButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 mr-2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                            </svg>
-                                Edit Profile</PrimaryButton>
+                        Update Cover Image
+                        <input type="file" accept="image/*" className="absolute left-0 top-0 bottom-0 right-0 opacity-0 cursor-pointer"></input>
+                     </button>
+                    <div className="flex">
+                            <img src={`/storage/avatars/${users_profile.image_name}`}
+                            className="rounded-full w-[100px] h-[100px] ml-[100px] -mt-[120px]"></img>
+                        <div className="flex justify-between items-center flex-1 p-4 capitalize ml-[10px] -mt-[144px]">
+                            <h1 className="text-6xl font-bold text-white">{`${users_profile.name} ${users_profile.lastname}`}</h1>
+
                         </div>
                     </div>
-                   
+                </div>   
                     <div className="w-full px-2 sm:px-0 border-t">
                             <ProfileTabs />
                     </div>
                     
-                </div>
+                
                
                 
                 
