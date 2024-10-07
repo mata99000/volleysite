@@ -30,13 +30,8 @@ class ProfileController extends Controller
     }
 
     public function show_profile($name, $lastname, $id) {
+       
         $user = User::findOrFail($id);
-
-
-        if ($user->name !== $name || $user->lastname !== $lastname) {
-            abort(404);
-        }
-
         return Inertia::render('Profile/Profile', [
             'users_profile' => [
                 'name' => $user->name,
