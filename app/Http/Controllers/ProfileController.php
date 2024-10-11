@@ -40,6 +40,7 @@ class ProfileController extends Controller
                 'email' => $user->email,
                 'city' => $user->city,
                 'dob' => $user->dob,
+                'cover_image' => $user->cover_image,
                 'image_name' => $user->image_name,
                 'motto' => $user->motto,
                 'about' => $user->about,
