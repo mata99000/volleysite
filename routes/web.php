@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Mail\TestEmail;
 
+Route::post('/profile/set-cover-image', [ProfileController::class, 'setCoverImage'])->name('profile.set_cover_image');
+
 
 
 Route::get('/auth/{provider}', function ($provider) {

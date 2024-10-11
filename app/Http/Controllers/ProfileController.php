@@ -53,7 +53,26 @@ class ProfileController extends Controller
             ],
         ]);
 }
+public function setCoverImage(Request $request)
+{
+    // Validacija slike
+    $request->validate([
+        'cover_image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+    ]);
 
+    // Generisanje jedinstvenog imena za fajl
+    $fileName = time() . '.' . $request->file('cover_image')->extension();
+
+    // Sačuvaj sliku u storage
+    $filePath = $request->file('cover_image')->storeAs('public/covers', $fileName);
+
+    // Ažuriraj korisnički model sa imenom slike
+    $user = Auth::user();
+    $user->cover_image = $fileName;
+    $user->save();
+
+    return back()->with('status', 'Cover image updated successfully');
+}
 public function set_profile_image(Request $request)
     {
         $request->validate([
