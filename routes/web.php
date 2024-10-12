@@ -87,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/club/store', [ClubController::class, 'store'])->name('club.store');
 
 
-    Route::get('/club/edit/{club}', [ClubController::class, 'edit'])->name('club.edit');
+    Route::get('/club/{club}/edit', [ClubController::class, 'edit'])->name('club.edit');
     Route::post('/club/{club}', [ClubController::class, 'update'])->name('club.update');
 
 

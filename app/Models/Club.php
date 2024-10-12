@@ -12,4 +12,10 @@ class Club extends Model
     protected $fillable = [
          'name', 'country', 'city', 'tournaments', 'roster', 'socials', 'club_pic','user_id'
     ];
+
+       // Koristi 'name' umesto ID-a u rutama
+       public function getRouteKeyName()
+       {
+           return 'name';
+       }
 }

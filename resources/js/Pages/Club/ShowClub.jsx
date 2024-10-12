@@ -26,7 +26,7 @@ const ShowClub = ({ club, auth }) => {
             {auth && auth.id === club.user_id && (
                 <div className="mt-6">
                     <Link
-                        href={route('club.edit', club.id)}
+                        href={route('club.edit', club.name)}
                         className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out shadow-lg"
                     >
                         Edit Club
