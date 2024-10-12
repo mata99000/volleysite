@@ -21,12 +21,31 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): Response
+    public function show_auth_user(Request $request): Response
     {
+        $user = User::findOrFail(auth()->user()->id);
+
         return Inertia::render('Profile/Profile', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
+            'users_profile' => [
+                'name' => $user->name,
+                'lastname' => $user->lastname,
+                'nickname' => $user->nickname,
+                'email' => $user->email,
+                'city' => $user->city,
+                'dob' => $user->dob,
+                'cover_image' => $user->cover_image,
+                'image_name' => $user->image_name,
+                'motto' => $user->motto,
+                'about' => $user->about,
+                'gender' => $user->gender,
+
+
+
+
+
+                // Dodajte ovde druge neosetljive informacije koje želite podeliti
+            ],
+        ]);    
     }
 
     public function show_profile($name, $lastname, $id) {

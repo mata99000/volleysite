@@ -127,7 +127,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/personal_settings', [PersonalInfromationController::class, 'edit'])->name('personal.edit');
 
     // vraca profile view
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show_auth_user'])->name('profile.edit');
 
     // update name,lastname, dob , phone_number, city, gender
     Route::patch('/personal_settings_profile', [PersonalInfromationController::class, 'update_profile'])->name('personal.update_profile');
