@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
@@ -12,25 +12,26 @@ export default function Profile({ auth }) {
     const [selectedCoverImage, setSelectedCoverImage] = useState(false);
     const [errors, setErrors] = useState({});
 
+    // prikaz slike koju zelis uploadovati
     const onCoverChange = (e) => {
+   
         const file = e.target.files[0];
         setSelectedCoverImage(true);
 
-        if (file) {
-            const reader = new FileReader();
+        const reader = new FileReader();
             reader.onloadend = () => {
-                setCoverPreview(reader.result);
-            };
+            setCoverPreview(reader.result);
+        };
+        if (file) {
             reader.readAsDataURL(file);
         } else {
             setCoverPreview(null);
-            setSelectedCoverImage(false);
         }
     };
-
+    // Snimanje slike (refresh potreban)
     const handleSubmitCover = async (e) => {
         e.preventDefault();
-
+    
         const formData = new FormData();
         formData.append('cover_image', e.target.cover_image.files[0]);
 
@@ -46,6 +47,7 @@ export default function Profile({ auth }) {
                 setUserCoverImage(response.data.cover_image_name);
                 setSelectedCoverImage(false);
                 setErrors({});
+                alert("Slika je uspesno promenjena.");
             }
         } catch (error) {
             if (error.response && error.response.status === 422) {
@@ -55,6 +57,10 @@ export default function Profile({ auth }) {
                 alert("Došlo je do greške prilikom uploada slike. Molimo pokušajte ponovo.");
             }
         }
+
+        useEffect(() => {
+            handleSubmitCover();
+        },[])
     };
 
     return (
@@ -67,11 +73,22 @@ export default function Profile({ auth }) {
             <div className="mx-auto container">
                 <form onSubmit={handleSubmitCover}>
                 <div className="relative group">
+                    {coverPreview ? (
                     <img 
+                    id="cover_image" 
+                    src={coverPreview}
+                    className="w-full h-[350px] object-cover">
+                    </img>
+                    ) : (
+                        userCoverImage && (
+                            <img 
                         id="cover_image" 
-                        src={coverPreview || (userCoverImage ? `/storage/covers/${userCoverImage}` : `/storage/covers/volley-background.png`)}
+                        src={`/storage/covers/${userCoverImage}`}
                         className="w-full h-[350px] object-cover">
                      </img>
+                        )
+                        
+                    )} 
 
                      <button className="absolute top-2 right-2 bg-gray-50 hover:bg-gray-100 text-gray-800 py-1 px-2 text-xs flex items-center opacity-0 group-hover:opacity-100">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 mr-2">
@@ -103,7 +120,6 @@ export default function Profile({ auth }) {
                 { selectedCoverImage && (
                         <button 
                             type="submit"
-                            onClick="submitCoverImage" 
                             className="absolute top-2 right-2 bg-gray-50 hover:bg-gray-100 text-gray-800 py-1 px-2 text-xs flex items-center opacity-0 group-hover:opacity-100">
                            Save
                         </button>
@@ -114,57 +130,6 @@ export default function Profile({ auth }) {
                     <div className="w-full px-2 sm:px-0 border-t">
                             <ProfileTabs />
                     </div>
-                    
-                
-               
-                
-                
-                {/* <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 bg-white shadow-sm rounded-lg p-6 space-y-6">
-                 
-                    {users_profile && (
-                        <div className="text-center">
-                            {users_profile.image_name && (
-                                <div className="mb-6">
-                                    <img
-                                        src={`/storage/avatars/${users_profile.image_name}`}
-                                        alt={`${users_profile.name} ${users_profile.lastname}`}
-                                        className="w-32 h-32 rounded-full mx-auto"
-                                    />
-                                </div>
-                            )}
-                            <div>
-                                <h1 className="text-3xl font-bold">{users_profile.name} {users_profile.lastname}</h1>
-                                <p className="text-gray-600">{users_profile.nickname}</p>
-                            </div>
-                            <div className="mt-6 space-y-4">
-                                <div>
-                                    <h2 className="text-xl font-semibold">Email</h2>
-                                    <p className="text-gray-800">{users_profile.email}</p>
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-semibold">City</h2>
-                                    <p className="text-gray-800">{users_profile.city}</p>
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-semibold">Motto</h2>
-                                    <p className="text-gray-800">{users_profile.motto}</p>
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-semibold">About</h2>
-                                    <p className="text-gray-800">{users_profile.about}</p>
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-semibold">Gender</h2>
-                                    <p className="text-gray-800 capitalize">{users_profile.gender}</p>
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-semibold">Date of Birth</h2>
-                                    <p className="text-gray-800">{formatDate(users_profile.dob)}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div> */}
             </div>
         </AuthenticatedLayout>
     );

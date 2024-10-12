@@ -72,7 +72,9 @@ public function setCoverImage(Request $request)
     $user->cover_image = $fileName;
     $user->save();
 
-    return back()->with('status', 'Cover image updated successfully');
+    $coverUrl = Storage::url('public/covers/' . $fileName);
+
+    return response()->json(['status' => 'Profile image updated successfully', 'cover_image_name' => $fileName, 'cover_image_url' => $coverUrl]);
 }
 public function set_profile_image(Request $request)
     {
