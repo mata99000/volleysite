@@ -78,7 +78,19 @@ Route::get('tournaments-api', [TournamentController::class, 'index']);
 Route::get('/tournament/{tournament_name}', [TournamentController::class, 'view_tournament']);
 
 //Protected Tournament Routs for creating and editing
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+    // Club Rute
+    Route::get('/club/show/{club}', [ClubController::class, 'show'])->name('club.show');
+    Route::get('/clubs', [ClubController::class, 'index'])->name('club.index');
+
+    Route::get('/club/create', [ClubController::class, 'create'])->name('club.create');
+    Route::post('/club/store', [ClubController::class, 'store'])->name('club.store');
+
+
+    Route::get('/club/edit/{club}', [ClubController::class, 'edit'])->name('club.edit');
+    Route::post('/club/{club}', [ClubController::class, 'update'])->name('club.update');
+
+
     Route::get('/tournaments', function() {
         return Inertia::render('Tournaments/Tournaments');
     })->name('tournaments.index');

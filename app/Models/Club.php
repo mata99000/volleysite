@@ -10,6 +10,6 @@ class Club extends Model
     use HasFactory;
 
     protected $fillable = [
-         'name', 'country', 'city', 'tournaments', 'roster', 'socials', 'club_pic'
+         'name', 'country', 'city', 'tournaments', 'roster', 'socials', 'club_pic','user_id'
     ];
 }

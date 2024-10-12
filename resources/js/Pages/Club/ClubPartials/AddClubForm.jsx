@@ -18,7 +18,7 @@ export default function AddClubForm({className = '', props}) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('add.club'));
+        post(route('club.store'));
     };
     useEffect(() => {
         return () => {
