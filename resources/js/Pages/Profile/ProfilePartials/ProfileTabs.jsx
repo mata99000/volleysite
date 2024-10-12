@@ -23,8 +23,7 @@ export default function ProfileTabs() {
 
                     <TabPanels className="w-[1200px] mx-auto mt-3">
                     {/* Sadrzaj taba pojedinacno */}
-                    <TabPanel 
-                      key="" 
+                    <TabPanel  
                       className="rounded-xl p-3 focus:outline-none"
                       >
                         <div className="grid grid-rows-2 grid-flow-col gap-4">
@@ -36,8 +35,8 @@ export default function ProfileTabs() {
                           <div className="rounded-lg bg-white p-4">
                             <div className="">
                             <h2 className="flex items-center font-bold">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5 mr-2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
                               </svg>
                                 Information
                             </h2>
@@ -92,7 +91,7 @@ export default function ProfileTabs() {
 
                                 <li className="text-sm">
                                   <a href="#!" role="button" className="flex items-center">
-                                    <span class="[&>svg]:h-7 [&>svg]:w-7 [&>svg]:fill-[#1877f2] mr-2">
+                                    <span className="[&>svg]:h-7 [&>svg]:w-7 [&>svg]:fill-[#1877f2] mr-2">
                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                       {/* !Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. */}
                                         <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z" />
@@ -118,7 +117,7 @@ export default function ProfileTabs() {
                           <ul className="py-4 flex">
                             <li className="text-sm">
                             <a href="#!" role="button" className="flex items-center">
-                                    <span class="[&>svg]:h-7 [&>svg]:w-7 [&>svg]:fill-[#1877f2] mr-2">
+                                    <span className="[&>svg]:h-7 [&>svg]:w-7 [&>svg]:fill-[#1877f2] mr-2">
                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                       {/* !Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. */}
                                         <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z" />
@@ -134,21 +133,18 @@ export default function ProfileTabs() {
                     </TabPanel>
 
                     <TabPanel 
-                      key="" 
                       className="rounded-xl bg-white p-3 ring-white/60 ring-offset-blue-400 focus:outline-none"
                       >
                         List of Clubs content
                     </TabPanel>
 
                     <TabPanel 
-                      key="" 
                       className="rounded-xl bg-white p-3 ring-white/60 ring-offset-blue-400 focus:outline-none"
                       >
                         Teammates content
                     </TabPanel>
 
-                    <TabPanel 
-                      key="" 
+                    <TabPanel  
                       className="rounded-xl bg-white p-3 ring-white/60 ring-offset-blue-400 focus:outline-none"
                       >
                         Achievement details content
