@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Club;
+use App\Models\ClubMember;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Events\PrivateMessageSent;
 
 class ClubController extends Controller
 {
@@ -24,15 +27,166 @@ class ClubController extends Controller
         'clubs' => $clubs,
     ]);
 }
+ // Prihvatanje poziva
+ public function acceptInvitation(Request $request, Club $club)
+ {
+     $user = auth()->user();
+     // Pronađi članstvo koje je u 'pending' statusu
+     $membership = ClubMember::where('club_id', $club->id)
+                             ->where('user_id', $user->id)
+                             ->where('status', 'pending')
+                             ->first();
 
-    public function show(Club $club)
-    {
-        // Prikazivanje stranice sa informacijama o klubu i dugmetom za izmenu
-        return Inertia::render('Club/ShowClub', [
-            'club' => $club,
-            'auth' => auth()->user(), // Prosleđivanje podataka o korisniku ako je potrebno za proveru prava
-        ]);
+     if (!$membership) {
+         return response()->json(['error' => 'Članstvo nije pronađeno ili nije u pending statusu'], 404);
+     }
+
+     // Ažuriraj status na 'accepted'
+     $membership->update(['status' => 'accepted']);
+
+     return response()->json(['message' => 'Uspešno ste prihvatili poziv za pridruživanje klubu.']);
+ }
+
+ // Odbijanje poziva
+ public function rejectInvitation(Request $request, Club $club)
+ {
+     $user = auth()->user();
+
+     // Pronađi članstvo koje je u 'pending' statusu
+     $membership = ClubMember::where('club_id', $club->id)
+                             ->where('user_id', $user->id)
+                             ->where('status', 'pending')
+                             ->first();
+
+     if (!$membership) {
+         return response()->json(['error' => 'Članstvo nije pronađeno ili nije u pending statusu'], 404);
+     }
+
+     // Ažuriraj status na 'rejected'
+     $membership->update(['status' => 'rejected']);
+
+     return response()->json(['message' => 'Uspešno ste odbili poziv za pridruživanje klubu.']);
+ }
+public function addMember(Request $request, Club $club)
+{
+    // Validacija email-a
+    $request->validate([
+        'email' => 'required|email|exists:users,email', // Proverava da email postoji u users tabeli
+    ]);
+
+    // Proveri da li je korisnik vlasnik kluba
+    if ($club->user_id !== auth()->id()) {
+        return redirect()->back()->with('error', 'Nemate dozvolu za ovu akciju.');
     }
+
+    // Pronađi korisnika po emailu
+    $user = User::where('email', $request->email)->first();
+
+    // Proveri da li je korisnik već član kluba
+    $existingMember = ClubMember::where('club_id', $club->id)
+                                ->where('user_id', $user->id)
+                                ->first();
+
+    if ($existingMember) {
+        return redirect()->back()->with('error', 'Ovaj korisnik je već član kluba ili je poslao zahtev.');
+    }
+
+    // Dodaj novog člana sa statusom "accepted"
+    ClubMember::create([
+        'club_id' => $club->id,
+        'user_id' => $user->id,
+        'status' => 'pending',
+    ]);
+    // Emituj događaj kako bi korisnik bio obavešten
+    $message = "Pozvani ste da se pridružite klubu '{$club->name}'.";
+event(new PrivateMessageSent($message, $user->id, $club->name, true)); // Dugmad su uključena
+
+    return redirect()->back()->with('message', 'Novi član je uspešno dodat i ceka se na njegova potvrda.');
+}
+
+public function acceptMember(Request $request, Club $club, ClubMember $member)
+{
+    // Provera da li je korisnik vlasnik kluba
+    if ($club->user_id !== auth()->id()) {
+        return redirect()->back()->with('error', 'Nemate dozvolu za ovu akciju.');
+    }
+
+    // Prihva članstvo
+    $member->update(['status' => 'accepted']);
+
+    // Emituj događaj kako bi korisnik bio obavešten
+    $message = "Vaš zahtev za članstvo u klubu '{$club->name}' je prihvaćen.";
+    event(new PrivateMessageSent($message, $member->user_id));
+
+    return redirect()->back()->with('message', 'Član je uspešno prihvaćen.');
+}
+
+public function rejectMember(Request $request, Club $club, ClubMember $member)
+{
+    // Proveri da li je korisnik vlasnik kluba
+    if ($club->user_id !== auth()->id()) {
+        return redirect()->back()->with('error', 'Nemate dozvolu za ovu akciju.');
+    }
+
+    // Odbij članstvo
+    $member->update(['status' => 'rejected']);
+
+    return redirect()->back()->with('message', 'Član je odbijen.');
+}
+public function join(Club $club)
+{
+    $user = auth()->user();
+
+    $existingMembership = ClubMember::where('club_id', $club->id)
+        ->where('user_id', $user->id)
+        ->first();
+
+    if ($existingMembership) {
+        return redirect()->back()->with('message', 'Već ste poslali zahtev ili ste član ovog kluba.');
+    }
+
+    ClubMember::create([
+        'club_id' => $club->id,
+        'user_id' => $user->id,
+        'status' => 'pending',
+    ]);
+
+    return redirect()->back()->with('message', 'Zahtev za pridruživanje klubu je poslat.');
+}
+
+
+public function show(Club $club)
+{
+    $user = auth()->user();
+
+    // Provera da li je korisnik član ili ima pending zahtev
+    $userIsMember = false;
+    $membershipStatus = null;
+
+    if ($user) {
+        $membership = ClubMember::where('club_id', $club->id)
+                                ->where('user_id', $user->id)
+                                ->first();
+        if ($membership) {
+            $userIsMember = true;
+            $membershipStatus = $membership->status;
+        }
+    }
+
+    // Učitaj članove kluba
+    $clubMembers = ClubMember::with('user')
+                    ->where('club_id', $club->id)
+                    ->get();
+
+    return inertia('Club/ShowClub', [
+        'club' => $club,
+        'auth' => $user,
+        'userIsMember' => $userIsMember,
+        'membershipStatus' => $membershipStatus,
+        'clubMembers' => $clubMembers, // Prosleđivanje članova
+    ]);
+}
+
 public function store(Request $request)
 {
     // Validacija polja uključujući slike
