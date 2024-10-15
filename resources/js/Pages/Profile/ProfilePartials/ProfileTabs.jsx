@@ -2,6 +2,7 @@ import React from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import ProfileTabsItems from './ProfileTabsItems';
 import { DivideIcon } from '@heroicons/react/20/solid';
+import Slide from './Slide';
 
 export default function ProfileTabs() {
 
@@ -28,9 +29,19 @@ export default function ProfileTabs() {
                       >
                         <div className="grid grid-rows-2 grid-flow-col gap-4">
                           <div className="row-span-3 rounded-lg bg-white p-4">
-                            <h2>
-                              Photos
+                            <h2 className="flex items-center font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 mr-2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
+                              Gallery
                             </h2>
+                            <div className="w-full gallery-body">
+                              <div className="w-full h-auto">
+                              </div>
+                              <div>
+                                <Slide />
+                              </div>
+                            </div>
                           </div>
                           <div className="rounded-lg bg-white p-4">
                             <div className="">
