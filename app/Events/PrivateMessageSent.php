@@ -15,11 +15,15 @@ class PrivateMessageSent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
     public $userId;
+    public $clubId;
+    public $withButtons;
 
-    public function __construct($message, $userId)
+    public function __construct($message, $userId, $clubName = null, $withButtons = false)
     {
         $this->message = $message;
         $this->userId = $userId;
+        $this->clubName = $clubName;
+        $this->withButtons = $withButtons;
 
         // Sačuvaj notifikaciju u bazi za specifičnog korisnika
         Notification::create([
@@ -36,6 +40,11 @@ class PrivateMessageSent implements ShouldBroadcastNow
 
     public function broadcastWith()
     {
-        return ['message' => $this->message];
+        
+        return [
+            'message' => $this->message,
+            'clubName' => $this->clubName,
+            'withButtons' => $this->withButtons,
+        ];
     }
 }

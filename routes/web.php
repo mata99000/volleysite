@@ -90,6 +90,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/club/{club}/edit', [ClubController::class, 'edit'])->name('club.edit');
     Route::post('/club/{club}', [ClubController::class, 'update'])->name('club.update');
 
+    Route::post('/clubs/{club}/join', [ClubController::class, 'join'])->name('club.join');
+    Route::post('/clubs/{club:name}/add-member', [ClubController::class, 'addMember'])->name('club.addMember');
+// Rute za prihvatanje i odbijanje poziva
+Route::post('/clubs/{club:name}/accept-invitation', [ClubController::class, 'acceptInvitation'])->name('club.acceptInvitation');
+Route::post('/clubs/{club:name}/reject-invitation', [ClubController::class, 'rejectInvitation'])->name('club.rejectInvitation');
+
+    Route::post('/clubs/{club}/members/{member}/accept', [ClubController::class, 'acceptMember'])->name('club.acceptMember');
+    Route::post('/clubs/{club}/members/{member}/reject', [ClubController::class, 'rejectMember'])->name('club.rejectMember');
+    
+
 
     Route::get('/tournaments', function() {
         return Inertia::render('Tournaments/Tournaments');
